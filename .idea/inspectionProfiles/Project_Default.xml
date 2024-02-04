@@ -81,6 +81,7 @@
           <option value="sattrack.orbit.sgp4" />
           <option value="sattrack.orbit.tle.*" />
           <option value="pyevspace.*" />
+          <option value="sattrack.TwoLineElement" />
         </list>
       </option>
     </inspection_tool>
