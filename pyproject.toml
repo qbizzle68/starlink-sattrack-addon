@@ -3,14 +3,14 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "starlink"
+name = "starlink-sattrack-extension"
 version = "0.1.0"
 authors = [
     { name="Quinton Barnes", email="devqbizzle68@gmail.com" }
 ]
-description = "Sattrack addon for handling and SpaceX's Starlink satellite batches."
+description = "Starlink add-on for handling and SpaceX's Starlink satellite batches."
 readme = "README.md"
-license = { file = "LICENCE.txt" }
+license = { file = "LICENSE.txt" }
 requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -22,7 +22,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Astronomy",
 ]
 dependencies = [
-    "sattrack",
+#    "sattrack",
     "pyevspace",
     "requests",
 ]
@@ -30,3 +30,10 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/qbizzle68/starlink-sattrack-addon"
 "Bug Tracker" = "https://github.com/qbizzle68/starlink-sattrack-addon/issues"
+
+[tool.setuptools]
+packages = ["starlink", "starlink.config", "starlink.importers", "starlink.models"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"starlink.config" = ["starlink-config.toml"]
