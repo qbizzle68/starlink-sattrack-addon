@@ -6,7 +6,8 @@ from statistics import stdev
 from sattrack.api import now, EARTH_EQUITORIAL_RADIUS
 
 from .satellites import StarlinkSatelliteContainer, StarlinkSatellite
-from .. import starlinkConfig
+# from ..config.configImport import starlinkConfig
+import starlink.config.configImport as configImport
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -26,7 +27,7 @@ class StarlinkBatch(StarlinkSatelliteContainer):
         if not match:
             raise ValueError(f'invalid batch number syntax({batch})')
 
-        self._intDes = starlinkConfig['launches'].get(batch)
+        self._intDes = configImport.starlinkConfig['launches'].get(batch)
         self._batchTag = batch
         self._groupNumber = match.group(1)
 
@@ -63,7 +64,7 @@ class StarlinkBatch(StarlinkSatelliteContainer):
 
     @staticmethod
     def _splitIntoPlanes(satellites: StarlinkList) -> 'list[GroupPlane]':
-        RAAN_STDEV_OUTLIER = starlinkConfig['RAAN_STDEV_OUTLIER']
+        RAAN_STDEV_OUTLIER = configImport.starlinkConfig['defaults']['RAAN_STDEV_OUTLIER']
 
         satellites = sorted(satellites, key=lambda o: o.raan)
         satellitesCount = len(satellites)
@@ -92,8 +93,8 @@ class StarlinkBatch(StarlinkSatelliteContainer):
     @staticmethod
     def _findTrains(plane: 'GroupPlane') -> StarlinkList:
         trains = []
-        MAXIMUM_TRAIN_GAP = starlinkConfig['MAXIMUM_TRAIN_GAP']
-        MAXIMUM_TRAIN_HEIGHT = starlinkConfig['MAXIMUM_TRAIN_HEIGHT']
+        MAXIMUM_TRAIN_GAP = configImport.starlinkConfig['defaults']['MAXIMUM_TRAIN_GAP']
+        MAXIMUM_TRAIN_HEIGHT = configImport.starlinkConfig['defaults']['MAXIMUM_TRAIN_HEIGHT']
         i = 0
         while i < len(plane) - 1:
             train = [plane.satellites[i]]
@@ -149,7 +150,7 @@ class GroupPlane(StarlinkSatelliteContainer):
 
         self._groupNumber = str(number)
         self._raan = min(satellites, key=lambda o: o.raan)
-        self._config = starlinkConfig['groups'][self._groupNumber]
+        self._config = configImport.starlinkConfig['groups'][self._groupNumber]
 
         sortedSatellites = self._sortSatellites(satellites)
         super().__init__(sortedSatellites)

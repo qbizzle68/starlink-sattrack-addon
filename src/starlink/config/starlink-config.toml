@@ -1,73 +1,89 @@
-updated = 2023-09-18T22:06:00-05:00
-# update-after-period = 1     # units of hours, used by datetime.timedelta.__init__()
+[meta]
+updated = 2024-02-07T23:01:00-06:00
 
-[groups]
-1.inclination = 53.05
-1.altitude = 550
-1.planes = 72
-1.per = 22
-1.total = 1584
-2.inclination = 70
-2.altitude = 570
-2.planes = 36
-2.per = 20
-2.total = 720
-3.inclination = 97.6
-3.altitude = 560
-3.planes = 6
-3.per = 58
-3.total = 348
-4.inclination = 53.2
-4.altitude = 540
-4.planes = 72
-4.per = 22
-4.total = 1584
-5.inclination = 43
-5.altitude = 530
-5.planes = 28
-5.per = 120
-5.total = 3360
-6.inclination = 43
-6.altitude = 559
-6.planes = 28
-6.per = 120
-6.total = 3360
-7.inclination = 53
-7.altitude = 525
-7.planes = 28
-7.per = 120
-7.total = 3360
+[defaults]
+RAAN_STDEV_OUTLIER = 1.25
+MAXIMUM_TRAIN_GAP = 5
+MAXIMUM_TRAIN_HEIGHT = 350
+
+[groups.1]
+inclination = 53.05
+altitude = 550
+planes = 72
+per = 22
+total = 1584
+
+[groups.2]
+inclination = 70
+altitude = 570
+planes = 36
+per = 20
+total = 720
+
+[groups.3]
+inclination = 97.6
+altitude = 560
+planes = 6
+per = 58
+total = 348
+
+[groups.4]
+inclination = 53.2
+altitude = 540
+planes = 72
+per = 22
+total = 1584
+
+[groups.5]
+inclination = 43
+altitude = 530
+planes = 28
+per = 120
+total = 3360
+
+[groups.6]
+inclination = 43
+altitude = 559
+planes = 28
+per = 120
+total = 3360
+
+[groups.7]
+inclination = 53
+altitude = 525
+planes = 28
+per = 120
+total = 3360
 
 [launches]
-# put the original LXX launches here
-#L1 =
-#L2 =
-#L3 =
-#L4 =
-#L5 =
-#L6 =
-#L7 =
-#L8 =
-#L9 =
-#L10 =
-#L11 =
-#L12 =
-#L13 =
-#L14 =
-#L15 =
-#L16 =
-#L17 =
-#L18 =
-#L19 =
-#L20 =
-#L21 =
-#L22 =
-#L23 =
-#L24 =
-#L25 =
-#L26 =
-#L27 =
-#L28 =
+L1 = '19074'
+L2 = '20001'
+L3 = '20006'
+L4 = '20012'
+L5 = '20019'
+L6 = '20025'
+L7 = '20035'
+L8 = '20038'
+L9 = '20055'
+L10 = '20057'
+L11 = '20062'
+L12 = '20070'
+L13 = '20073'
+L14 = '20074'
+L15 = '20088'
+L16 = '21005'
+L18 = '21009'
+L19 = '21012'
+L20 = '21017'
+L21 = '21021'
+L22 = '21024'
+L23 = '21027'
+L24 = '21036'
+L25 = '21038'
+L26 = '21041'
+L27 = '21040'
+L28 = '21044'
+transporter-2 = '21059'
 2-1 = '21082'
 2-4 = '23010'
 2-5 = '23021'
