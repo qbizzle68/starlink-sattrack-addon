@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2024-02-12
+
+### Added
+
+- `MINIMUM_TRAIN_LENGTH` value (which defaults to 2) added to the `defaults` section of the
+`starlinkConfig` dict.
+
+### Fixed
+
+- Issue when only a portion of a `StarlinkTrain`'s satellites are in the next pass. This occurs
+at low altitude passes and the portion that don't rise are ignored for the current pass computations.
+- Resolved a bug that would include all `StarlinkSatellites` in the first `GroupPlane` list of a 
+`StarlinkBatch` that would also propagate to the first `StarlinkTrain` of the list.
+
 ## [0.1.2] - 2024-02-11
 
 ### Added
@@ -38,6 +52,7 @@ working directory.
 - Added `StarlinkBatch`, `GroupPlane`, and `StarlinkTrain` classes.
 
 [Unreleased]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.1...HEAD
+[0.1.3]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/qbizzle68/starlink-sattrack-extension/releases/tag/v0.1.0
