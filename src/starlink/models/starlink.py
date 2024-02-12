@@ -50,8 +50,7 @@ class StarlinkBatch(StarlinkSatelliteContainer):
         for plane in self._planes:
             trains = self._findTrains(plane)
             for train in trains:
-                # can apply other post computation filters here
-                if len(train) > 1:
+                if len(train) >= configImport.starlinkConfig['defaults']['MINIMUM_TRAIN_LENGTH']:
                     self._trains.append(StarlinkTrain(train, batch))
 
     def _fillBasicAttributes(self, satellites: StarlinkList):
