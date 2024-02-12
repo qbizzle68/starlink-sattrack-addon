@@ -41,7 +41,7 @@ class StarlinkBatch(StarlinkSatelliteContainer):
         planes = self._splitIntoPlanes(batchSatellites)
         self._planes = [GroupPlane(plane, self._groupNumber) for plane in planes]
 
-        satellites = self._planes[0].satellites
+        satellites = [sat for sat in self._planes[0].satellites]
         for plane in self._planes[1:]:
             satellites.extend(plane.satellites)
         super().__init__(satellites)
