@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "starlink-sattrack-extension"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
     { name="Quinton Barnes", email="devqbizzle68@gmail.com" }
 ]
