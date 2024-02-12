@@ -48,38 +48,32 @@ class StarlinkPassFinder:
 
         return StarlinkPass(allInfos, validPasses, self._train.batchTag)
 
-        # maxInfo = max([nextPass.maxInfo for nextPass in validPasses], key=lambda o: o.time if o else 0)
-        # maxIlluminatedInfo = max([np.maxIlluminatedInfo for np in validPasses], key=lambda o: o.time if o else 0)
-        # maxUnobscuredInfo = max([np.maxUnobscuredInfo for np in validPasses], key=lambda o: o.time if o else 0)
-        # maxVisibleInfo = max([np.maxVisibleInfo for np in validPasses], key=lambda o: o.time if o else 0)
-        # firstUnobscuredInfo = lastUnobscuredInfo = firstIlluminatedInfo = firstVisibleInfo = lastVisible = None
-        # for np in validPasses:
-        #     if firstUnobscuredInfo is None:
-        #         if np.firstUnobscuredInfo is not None:
-        #             firstUnobscuredInfo = np.firstUnobscuredInfo
-        #     if lastUnobscuredInfo is None:
-        #         if np.lastUnobscuredInfo is not None:
-        #             lastUnobscuredInfo = np.lastUnobscuredInfo
-        #     if firstIlluminatedInfo is None:
-        #         if np.firstIlluminatedInfo is not None:
-        #             firstIlluminatedInfo = np.firstIlluminatedInfo
-        #     if firstVisibleInfo is None:
-        #         if np.firstVisibleInfo is not None:
-        #             firstVisibleInfo = np.firstVisibleInfo
-        #     if lastVisible is None:
-        #         if np.lastVisible is not None:
-        #             lastVisible = np.lastVisible
-        #
-        # lastIlluminatedInfo = None
-        # for np in reversed(validPasses):
-        #     if lastIlluminatedInfo is None:
-        #         if np.lastIlluminatedInfo is not None:
-        #             lastIlluminatedInfo = np.lastIlluminatedInfo
-        #
-        # infos = [validPasses[0].riseInfo, validPasses[-1].setInfo, maxInfo,]
-
     def computePassList(self, time: 'JulianDate', duration: float) -> list[StarlinkPass]:
-        pass
+        if duration > 0:
+            nextOccurrence = True
+        elif duration < 0:
+            nextOccurrence = False
+        else:
+            raise ValueError(f'duration must be a non-zero number')
+
+        stopTime = time.future(duration)
+        passList = []
+        while True:
+            # remainingTime = stopTime - time
+            try:
+                nextPass = self.computeNextPass(time, nextOccurrence, 14)
+            except Exception as e:
+                if passList:
+                    return passList
+                raise e
+
+            if nextPass.riseInfo.time >= stopTime:
+                break
+
+            passList.append(nextPass)
+            time = nextPass.setInfo.time.future(0.001)
+
+        return passList
 
     @property
     def train(self) -> 'StarlinkTrain':
