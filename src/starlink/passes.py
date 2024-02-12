@@ -32,11 +32,14 @@ class StarlinkPassFinder:
 
         nextPasses = [controller.computeNextPass(time, nextOccurrence, timeout)
                       for controller in self._passControllers]
-        validPasses = [nextPasses[0]]
-        for i, nextPass in enumerate(nextPasses[1:], 1):
-        # for i in range(1, len(nextPasses) - 1):
-            if nextPasses[i-1].setInfo.time > nextPass.riseInfo.time:
-                validPasses.append(nextPass)
+        earliestPassIndex = min(enumerate(nextPasses), key=lambda o: o[1].riseInfo.time)[0]
+
+        validPasses = [nextPasses[earliestPassIndex]]
+        checkStartingIndex = earliestPassIndex + 1
+        for thisPass in nextPasses[checkStartingIndex:]:
+            previousPass = validPasses[-1]
+            if previousPass.setInfo.time > thisPass.riseInfo.time:
+                validPasses.append(thisPass)
             else:
                 break
 
