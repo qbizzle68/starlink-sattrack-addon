@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2024-02-25
+
+### Added
+
+- Added Sattrack as an install dependency.
+- Check if dependencies are importable during initialization and raise an `ImportError` if not.
+- The configuration now contains the `PASS_BUFFER` value in the `defaults` section. This is used
+to extend the set time of the previous satellite, to ensure a given satellite is still computed
+within the satellite pass.
+
+### Fixed
+
+- Fixed an error that didn't properly set the 'defaults' table during re-configuration while using
+the `updateConfig()` function.
+- Fixed an issue where a train may still be split into two or more groups based on rise/set times of
+each satellite's pass times. The new `PASS_BUFFER` configuration value is used to ensure individual
+consecutive passes that aren't consecutively above the horizon are still considered in a single
+satellite pass.
+
 ## [0.1.3] - 2024-02-12
 
 ### Added
@@ -51,7 +70,8 @@ working directory.
 
 - Added `StarlinkBatch`, `GroupPlane`, and `StarlinkTrain` classes.
 
-[Unreleased]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/qbizzle68/starlink-sattrack-extension/compare/v0.1.0...v0.1.1
