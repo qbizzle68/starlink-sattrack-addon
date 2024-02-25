@@ -1,3 +1,5 @@
+import starlink.config.configImport as configImport
+
 from sattrack.api import SatellitePass, PassFinder
 from typing import TYPE_CHECKING
 
@@ -34,11 +36,15 @@ class StarlinkPassFinder:
                       for controller in self._passControllers]
         earliestPassIndex = min(enumerate(nextPasses), key=lambda o: o[1].riseInfo.time)[0]
 
+        passBuffer = configImport.starlinkConfig['defaults']['PASS_BUFFER']
         validPasses = [nextPasses[earliestPassIndex]]
         checkStartingIndex = earliestPassIndex + 1
         for thisPass in nextPasses[checkStartingIndex:]:
             previousPass = validPasses[-1]
-            if previousPass.setInfo.time > thisPass.riseInfo.time:
+            # Some low passes rise after the previous sets, but are still considered a part of the train.
+            # We should use a non-zero buffer value to ensure we use all passes.
+            # if previousPass.setInfo.time > thisPass.riseInfo.time:
+            if previousPass.setInfo.time - thisPass.riseInfo.time > -passBuffer:
                 validPasses.append(thisPass)
             else:
                 break
