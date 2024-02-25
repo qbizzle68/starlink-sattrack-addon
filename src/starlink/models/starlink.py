@@ -27,7 +27,10 @@ class StarlinkBatch(StarlinkSatelliteContainer):
         if not match:
             raise ValueError(f'invalid batch number syntax({batch})')
 
-        self._intDes = configImport.starlinkConfig['launches'].get(batch)
+        intDes = configImport.starlinkConfig['launches'].get(batch)
+        if intDes is None:
+            raise LookupError(f'unable to find batch \'{batch}\' in starlinkConfig')
+        self._intDes = intDes
         self._batchTag = batch
         self._groupNumber = match.group(1)
 
