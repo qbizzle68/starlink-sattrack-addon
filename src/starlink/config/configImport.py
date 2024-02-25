@@ -1,4 +1,5 @@
 import tomllib
+from copy import deepcopy
 from importlib.resources import files
 
 # Global configuration dictionary.
@@ -21,21 +22,21 @@ def updateConfig(path: str):
     Any missing required default values will be added to the configuration."""
 
     global starlinkConfig
-    defaults: dict = starlinkConfig['defaults']
+    defaults: dict = deepcopy(starlinkConfig['defaults'])
     starlinkConfig.clear()
 
     with open(path, 'rb') as toml:
         _importedConfig = tomllib.load(toml)
 
     for key in _importedConfig.keys():
-        starlinkConfig[key] = _importedConfig[key]
+        starlinkConfig[key] = deepcopy(_importedConfig[key])
 
     if not starlinkConfig.get('defaults'):
         starlinkConfig['defaults'] = {}
 
     for key, value in defaults.items():
         if key not in starlinkConfig['defaults']:
-            defaults[key] = value
+            starlinkConfig['defaults'][key] = deepcopy(value)
 
 
 def getConfig() -> dict:
