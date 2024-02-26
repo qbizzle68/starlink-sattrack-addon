@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2024-02-25
+
+### Fixed
+
+- Fixed poor dictionary updating mechanisms, reverting to Python's default `dict.update()` method.
+
 ## [0.1.4] - 2024-02-25
 
 ### Added
