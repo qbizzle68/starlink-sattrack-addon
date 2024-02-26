@@ -28,15 +28,11 @@ def updateConfig(path: str):
     with open(path, 'rb') as toml:
         _importedConfig = tomllib.load(toml)
 
-    for key in _importedConfig.keys():
-        starlinkConfig[key] = deepcopy(_importedConfig[key])
+    starlinkConfig.update(_importedConfig)
 
     if not starlinkConfig.get('defaults'):
         starlinkConfig['defaults'] = {}
-
-    for key, value in defaults.items():
-        if key not in starlinkConfig['defaults']:
-            starlinkConfig['defaults'][key] = deepcopy(value)
+        starlinkConfig['defaults'].update(defaults)
 
 
 def getConfig() -> dict:
